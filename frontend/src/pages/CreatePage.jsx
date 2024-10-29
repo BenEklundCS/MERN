@@ -1,6 +1,7 @@
 import React from 'react';
-import { Container, VStack, Heading, useColorModeValue, Box, Input, Button } from '@chakra-ui/react';
+import { Container, VStack, Heading, useColorModeValue, Box, Input, Button, useToast } from '@chakra-ui/react';
 import { useProductStore } from '../../store/product';
+import { set } from 'mongoose';
 
 const CreatePage = () => {
   const [newProduct, setNewProduct] = React.useState({
@@ -9,10 +10,35 @@ const CreatePage = () => {
     image: "",
   });
 
+  const toast = useToast();
+
   const { createProduct } = useProductStore(); // Destructure createProduct from the hook
+
+  // Function to handle adding a product
   const handleAddProduct = async () => {
     const { success, message } = await createProduct(newProduct); // Await the async function
-    console.log("success", success, message);
+    // If there is an error creating the product
+    if (!success) {
+      // Show an error toast popup from Chakra UI
+      toast({
+        title: "Error creating product",
+        description: message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+    else {
+      // Else show a success toast popup from Chakra UI
+      toast({
+        title: "Product created",
+        description: message,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+    setNewProduct({ name: "", price: "", image: "" }); // Reset the newProduct state
   };
 
   return (
