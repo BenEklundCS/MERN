@@ -13,7 +13,7 @@ function App() {
 			<Routes>
 				<Route path='/' element={<HomePage />} />
 				<Route path='/create' element={<CreatePage />} />
-        <Route path='/my_route' element={<MyPage />} />
+        		<Route path='/my_route' element={<MyPage />} />
 			</Routes>
 		</Box>
 	);
