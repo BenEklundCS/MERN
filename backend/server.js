@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
 
 import productRoutes from './routes/Product.route.js';
+import authRoutes from './routes/User.route.js';
 
 // Load env variables from .env file
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(express.json());
 
 // Import the product routes api
 app.use('/api/products', productRoutes);
+app.use('/auth/', authRoutes);
 
 // Start server on port 5000
 app.listen(5000, () => {

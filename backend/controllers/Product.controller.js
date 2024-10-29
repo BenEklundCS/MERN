@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 
 // Get all products from the database
 export const getProducts = async (request, response) => {
-    // Get all products from the database
     try {
         const products = await Product.find({});
         response.status(200).json({ success: true, data: products });
